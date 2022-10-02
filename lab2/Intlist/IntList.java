@@ -87,6 +87,15 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
+        if (A == null){
+            if (B == null){
+                return null;
+            }
+            return B;
+        }
+        if (B == null){
+            return A;
+        }
         IntList p = A;
         while (p.rest != null){
             p = p.rest;
@@ -101,30 +110,30 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-//        if (A == null){
-//            if(B == null){
-//                return null;
-//            }
-//            return B;
-//        }
-//        if (B == null){
-//            return A;
-//        }
-//        if (A.rest == null){
-//            return new IntList(A.first,B);
-//        }
-//        return new IntList(A.first,catenate(A.rest,B));
-        IntList C = new IntList(A.first,null);
-        IntList p = C;
-        IntList q = A;
-        q = q.rest;
-        while (q != null){
-            p.rest = new IntList(q.first,null);
-            p = p.rest;
-            q = q.rest;
+        if (A == null){
+            if(B == null){
+                return null;
+            }
+            return B;
         }
-        p.rest = B;
-        return C;
+        if (B == null){
+            return A;
+        }
+        if (A.rest == null){
+            return new IntList(A.first,B);
+        }
+        return new IntList(A.first,catenate(A.rest,B));
+//        IntList C = new IntList(A.first,null);
+//        IntList p = C;
+//        IntList q = A;
+//        q = q.rest;
+//        while (q != null){
+//            p.rest = new IntList(q.first,null);
+//            p = p.rest;
+//            q = q.rest;
+//        }
+//        p.rest = B;
+//        return C;
     }
 
 
