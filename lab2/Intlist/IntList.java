@@ -29,12 +29,13 @@ public class IntList {
      * A List with null rest, and first = 0.
      */
     public IntList() {
-    /* NOTE: public IntList () { }  would also work. */
+        /* NOTE: public IntList () { }  would also work. */
         this(0, null);
     }
 
     /**
      * Returns a list equal to L with all elements squared. Destructive.
+     * 修改代码 使得所有元素都是其平方
      */
     public static void dSquareList(IntList L) {
 
@@ -46,6 +47,7 @@ public class IntList {
 
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
+     * 使用迭代返回所有元素的平方
      */
     public static IntList squareListIterative(IntList L) {
         if (L == null) {
@@ -64,6 +66,8 @@ public class IntList {
 
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
+     * 使用递归返回所有元素的平方
+     * 更改链表中所有元素的值为他的平方 仅此而已
      */
     public static IntList squareListRecursive(IntList L) {
         if (L == null) {
@@ -78,18 +82,16 @@ public class IntList {
     /**
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
+     *
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        if (A == null){
-            return B;
+        IntList p = A;
+        while (p.rest != null){
+            p = p.rest;
         }
-        IntList ptr = A;
-        while (ptr.rest != null){
-            ptr = ptr.rest;
-        }
-        ptr.rest = B;
+        p.rest = B;
         return A;
     }
 
@@ -99,14 +101,30 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        if (A == null){
-            return B;
+//        if (A == null){
+//            if(B == null){
+//                return null;
+//            }
+//            return B;
+//        }
+//        if (B == null){
+//            return A;
+//        }
+//        if (A.rest == null){
+//            return new IntList(A.first,B);
+//        }
+//        return new IntList(A.first,catenate(A.rest,B));
+        IntList C = new IntList(A.first,null);
+        IntList p = C;
+        IntList q = A;
+        q = q.rest;
+        while (q != null){
+            p.rest = new IntList(q.first,null);
+            p = p.rest;
+            q = q.rest;
         }
-        if (A.rest == null){
-            return new IntList(A.first,B);
-        }
-        return new IntList(A.first,catenate(A.rest,B));
-
+        p.rest = B;
+        return C;
     }
 
 
@@ -246,4 +264,3 @@ public class IntList {
         return out.toString();
     }
 }
-
