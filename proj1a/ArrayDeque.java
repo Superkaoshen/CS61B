@@ -31,7 +31,7 @@ public class ArrayDeque <T>{
                 a[--tmp4] = items[--tmp3];
                 //System.out.println(tmp4);
             }
-            System.out.println(tmp4);
+            //System.out.println(tmp4);
             nextFirst = tmp4 - 1;
             items = a;
 
@@ -88,9 +88,10 @@ public class ArrayDeque <T>{
             if (size == 0){
                 return null;
             }
-            T items_r = items[nextFirst + 1];
+            T items_r = items[(nextFirst + items.length) % items.length];
             items[nextFirst] = null;
-            nextFirst ++;
+            nextFirst++;
+            nextFirst = (nextFirst + items.length) % items.length;
             size --;
             return items_r;
         }
@@ -104,6 +105,6 @@ public class ArrayDeque <T>{
 
         }
 
-   
+
 
 }
