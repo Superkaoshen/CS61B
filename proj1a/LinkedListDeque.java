@@ -3,12 +3,12 @@ public class LinkedListDeque <T>{
        private T item;
        private node pre;
        private node next;
-       public node (T n,node pre1,node next1){
+       private node (T n,node pre1,node next1){
             item = n;
             pre = pre1;
             next = next1;
         }
-       public node (node pre1,node next1){
+        public node (node pre1,node next1){
            pre = pre1;
            next = next1;
        }
@@ -119,16 +119,5 @@ public class LinkedListDeque <T>{
         node ptr = sentinel;
 
         return getRecursiveHelp(ptr.next, index);
-    }
-
-
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> k = new LinkedListDeque<Integer>();
-        k.addFirst(1);
-        k.addFirst(2);
-        System.out.println(k.getRecursive(3));
-        System.out.println(k.get(-1));
-//        k.printDeque();
-//
     }
 }
