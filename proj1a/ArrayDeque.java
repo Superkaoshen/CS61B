@@ -1,21 +1,21 @@
 import java.security.spec.RSAOtherPrimeInfo;
 import java.util.Arrays;
 
-public class ArrayDeque {
-        private int[] items;
+public class ArrayDeque <T>{
+        private T[] items;
         private int size;
         private int nextFirst;
         private int nextLast;
 
         public ArrayDeque() {
-            items = new int[8];
+            items = (T[])new Object[8];
             size = 0;
             nextFirst = 4;
             nextLast = 5;
         }
 
         private void resize(int capacity) {
-            int[] a = new int[capacity];
+            T[] a = (T[]) new Object[capacity];
             int tmp = (nextFirst + items.length) % items.length + 1;
             int tmp1 = nextLast - 1;
             for (int i = 0;i <= tmp1; i++){
@@ -38,7 +38,7 @@ public class ArrayDeque {
 
 
 
-        public void addLast(int x) {
+        public void addLast(T x) {
             if (size == items.length){
                 resize(size * 2);
             }
@@ -49,7 +49,7 @@ public class ArrayDeque {
             nextLast ++;
             size ++;
         }
-        public void addFirst(int x){
+        public void addFirst(T x){
             if (size == items.length){
                 resize(size * 2);
             }
@@ -69,33 +69,33 @@ public class ArrayDeque {
         }
         public void printDeque(){
             for(int i = 0;i < items.length; i++){
-                if (get(i)!=0)
+                if (get(i) != null)
                     System.out.print(get(i) + " ");
             }
         }
-        public int remveLast(){
+        public T removeLast(){
             if(size == 0){
-                return 0;
+                return null;
             }
-            int items_r = items[nextLast - 1];
-            items[nextLast - 1] = 0;
+            T items_r = items[nextLast - 1];
+            items[nextLast - 1] = null;
             nextLast --;
             size --;
             return items_r;
         }
-        public int removeFirst(){
+        public T removeFirst(){
             if (size == 0){
-                return 0;
+                return null;
             }
-            int items_r = items[nextFirst + 1];
-            items[nextFirst] = 0;
+            T items_r = items[nextFirst + 1];
+            items[nextFirst] = null;
             nextFirst ++;
             size --;
             return items_r;
         }
-        public int get(int index){
+        public T get(int index){
             if (index >= size || index < 0){
-                return 0;
+                return null;
             }
             int index_real = (nextFirst + items.length + 1) % items.length;
             //System.out.println(nextFirst);
