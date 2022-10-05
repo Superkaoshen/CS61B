@@ -15,26 +15,19 @@ public class ArrayDeque <T>{
         }
 
         private void resize(int capacity) {
-
             T[] a = (T[]) new Object[capacity];
             int tmp = (nextFirst + items.length) % items.length + 1;
             int tmp1 = nextLast - 1;
             for (int i = 0;i <= tmp1; i++){
                 a[tmp1 - i] = items[tmp1 - i];
-
-                //nextFirst ++;
             }
-            //nextFirst = nextFirst - 1;
             int tmp3 = items.length;
             int tmp4 = items.length * 2;
             for (int i = tmp;i < items.length; i ++){
                 a[--tmp4] = items[--tmp3];
-                //System.out.println(tmp4);
             }
-            //System.out.println(tmp4);
             nextFirst = tmp4 - 1;
             items = a;
-
         }
 
 
@@ -58,8 +51,10 @@ public class ArrayDeque <T>{
                 items[nextFirst] = x;
             }else {
                 items[(nextFirst + items.length)% items.length] = x;
-            }
-            nextFirst = (nextFirst + items.length) % items.length - 1;
+            }if(nextFirst == 0){
+                nextFirst = items.length - 1;
+            }else
+                nextFirst = (nextFirst + items.length) % items.length - 1;
             size ++;
         }
         public int size(){
@@ -100,11 +95,24 @@ public class ArrayDeque <T>{
                 return null;
             }
             int index_real = (nextFirst + items.length + 1) % items.length;
-            //System.out.println(nextFirst);
-            return items[(index_real + index)% items.length ];
+            return items[(index_real + index)% items.length];
 
         }
 
+    public static void main(String[] args) {
+        ArrayDeque<Integer> k = new ArrayDeque();
+        k.addFirst(0);
+        k.addFirst(1);
+        k.addFirst(2);
+        System.out.println(k.isEmpty());
+        System.out.println(k.isEmpty());
+
+        k.addFirst(5);
+        k.addFirst(6);
+        k.removeFirst();
+
+        k.printDeque();
+    }
 
 
 }
