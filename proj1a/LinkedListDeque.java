@@ -1,123 +1,115 @@
-public class LinkedListDeque <T>{
-    public class node{
-       private T item;
-       private node pre;
-       private node next;
-       private node (T n,node pre1,node next1){
+public class LinkedListDeque<T> {
+    /** inner class Node. */
+    public class Node {
+        /** the item stored on this node. */
+        private T item;
+        /** the Node before this Node. **/
+        private Node pre;
+        /** the Node after this Node. **/
+        private Node next;
+
+        /** constructor for Node. */
+        public Node(T n, Node ppre, Node nnext) {
             item = n;
-            pre = pre1;
-            next = next1;
+            pre = ppre;
+            next = nnext;
         }
-        public node (node pre1,node next1){
-           pre = pre1;
-           next = next1;
-       }
+
+        /** constructor for Node.(especially for sentinel node). */
+        public Node(Node ppre, Node nnext) {
+            pre = ppre;
+            next = nnext;
+        }
     }
 
+    /** sentinel node. */
+    private Node sentinel;
+    /** size of the deque. */
     private int size;
-    /*
-    初始化一个空的链表双端队列
-     */
-    private node sentinel;
-    public LinkedListDeque(){
-        sentinel = new node(null,null);
+
+    /** constructor for deque. */
+    public LinkedListDeque() {
+        sentinel = new Node(null, null);
         sentinel.pre = sentinel;
         sentinel.next = sentinel;
         size = 0;
     }
-    /*
-    在双端队列的前面添加一个类型的项目。
-     */
-    public void addFirst(T item){
-        node p = new node(item,sentinel,sentinel.next);
-        sentinel.next.pre = p;
-        sentinel.next = p;
-        size++;
+
+    public boolean isEmpty() {
+        return size == 0;
     }
-    /*
-    在双端队列的后面添加一个类型的项目。
-     */
-    public void addLast(T item){
-        node p = new node(item,sentinel.pre,sentinel);
-        sentinel.pre.next = p;
-        sentinel.pre = p;
-        size ++;
-    }
-    /*
-    如果 deque 为空，则返回 true，否则返回 false。
-     */
-    public boolean isEmpty(){
-        if (size == 0)
-            return true;
-        return false;
-    }
-    /*
-    返回双端队列中的项目数。
-     */
-    public int size(){
+
+    public int size() {
         return size;
     }
-    /*
-    从头到尾打印双端队列中的项目，用空格分隔。
-     */
-    public void printDeque(){
-        node p = sentinel.next;
-        while(p != sentinel){
-            System.out.print(p.item + " ");
-            p = p.next;
-        }
 
+    public void addFirst(T item) {
+        Node newList = new Node(item, sentinel, sentinel.next);
+        sentinel.next.pre = newList;
+        sentinel.next = newList;
+        size++;
     }
 
-    /*
-    删除并返回双端队列后面的项目。如果不存在这样的项目，则返回 null。
-     */
-    public T removeLast(){
-        if (size == 0){
+    public void addLast(T item) {
+        Node newList = new Node(item, sentinel.pre, sentinel);
+        sentinel.pre.next = newList;
+        sentinel.pre = newList;
+        size++;
+    }
+
+    public T removeFirst() {
+        if (size == 0) {
             return null;
         }
-        T item_r = sentinel.pre.item;
+        T ret = sentinel.next.item;
+        sentinel.next.next.pre = sentinel;
+        sentinel.next = sentinel.next.next;
+        size--;
+        return ret;
+    }
+
+    public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
+        T ret = sentinel.pre.item;
         sentinel.pre.pre.next = sentinel;
         sentinel.pre = sentinel.pre.pre;
-        size --;
-        return item_r;
+        size--;
+        return ret;
     }
-    public T removeFirst(){
-        if (size == 0){
+
+    public T get(int index) {
+        if (index >= size) {
             return null;
         }
-        T item_r = sentinel.next.item;
-            sentinel.next.pre = sentinel;
-            sentinel.next = sentinel.next.next;
-            size --;
-        return item_r;
-    }
-    /*
-    获取给定索引处的项目，其中 0 是前面，1 是下一个项目，依此类推。
-    如果不存在这样的项目，则返回 null。不能改变双端队列！
-     */
-    public T get(int index){
-        if (index >= size)
-        return null;
-        node ptr = sentinel;
-        for (int i = 0; i <= index; i ++){
+        Node ptr = sentinel;
+        for (int i = 0; i <= index; i++) {
             ptr = ptr.next;
         }
         return ptr.item;
     }
-    private T getRecursiveHelp(node start, int index) {
+
+    private T getRecursiveHelp(Node start, int index) {
         if (index == 0) {
             return start.item;
         } else {
             return getRecursiveHelp(start.next, index - 1);
         }
     }
-    public T getRecursive(int index){
-        if (index >= size){
+
+    public T getRecursive(int index) {
+        if (index >= size) {
             return null;
         }
-        node ptr = sentinel;
+        return getRecursiveHelp(sentinel.next, index);
+    }
 
-        return getRecursiveHelp(ptr.next, index);
+    public void printDeque() {
+        Node ptr = sentinel.next;
+        while (ptr != sentinel) {
+            System.out.print(ptr.item + " ");
+            ptr = ptr.next;
+        }
     }
 }
