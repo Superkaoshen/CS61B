@@ -107,17 +107,7 @@ public class ArrayDeque <T>{
 
         }
 
-    public static void main(String[] args) {
-        ArrayDeque<Integer> k = new ArrayDeque();
-
-        k.addLast(0);
-        k.addLast(1);
-        k.addLast(2);
-        k.addLast(3);
-        System.out.print(k.removeLast());
-        System.out.println(k.removeLast());
-
-    }
+   
 
 
 }
