@@ -18,6 +18,7 @@ public class TestPalindrome {
 
     @Test
     public void testisPalindrome() {
+        CharacterComparator cc = new OffByN(5);
         assertTrue(palindrome.isPalindrome(""));
         assertTrue(palindrome.isPalindrome("a"));
         assertTrue(palindrome.isPalindrome("appa"));
@@ -25,5 +26,7 @@ public class TestPalindrome {
 
         assertFalse(palindrome.isPalindrome("cat"));
         assertFalse(palindrome.isPalindrome("ababba"));
+        assertTrue(palindrome.isPalindrome("binding",cc));
+
     }
 }
